@@ -35,10 +35,6 @@ public class Artwork {
 
     @Override
     public String toString() {
-        return "Artwork{" +
-                "title='" + title + '\'' +
-                ", medium='" + medium + '\'' +
-                ", price=" + price +
-                '}';
+        return "Artwork{title='" + title + '\'' + ", medium='" + medium + '\'' + ", price=" + price + '}';
     }
 }

@@ -1,57 +1,27 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArtGallery {
     private String name;
     private String location;
-    private List<Artwork> artworks;
     private List<Artist> artists;
+    private List<Artwork> artworks;
 
     public ArtGallery(String name, String location) {
         this.name = name;
         this.location = location;
-        this.artworks = new ArrayList<>();
         this.artists = new ArrayList<>();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public List<Artwork> getArtworks() {
-        return artworks;
-    }
-
-    public List<Artist> getArtists() {
-        return artists;
-    }
-
-    // Methods
-    public void addArtwork(Artwork artwork) {
-        artworks.add(artwork);
+        this.artworks = new ArrayList<>();
     }
 
     public void addArtist(Artist artist) {
         artists.add(artist);
     }
 
-    public void displayArtworks() {
-        System.out.println("Artworks in " + name + ":");
-        for (Artwork artwork : artworks) {
-            System.out.println(artwork);
-        }
+    public void addArtwork(Artwork artwork) {
+        artworks.add(artwork);
     }
 
     public void displayArtists() {
@@ -61,13 +31,30 @@ public class ArtGallery {
         }
     }
 
+    public void displayArtworks() {
+        System.out.println("Artworks in " + name + ":");
+        for (Artwork artwork : artworks) {
+            System.out.println(artwork);
+        }
+    }
+
+    public void filterExpensiveArtworks(double minPrice) {
+        System.out.println("Artworks priced above " + minPrice + ":");
+        List<Artwork> filteredArtworks = artworks.stream()
+                .filter(artwork -> artwork.getPrice() > minPrice)
+                .collect(Collectors.toList());
+        filteredArtworks.forEach(System.out::println);
+    }
+
+    public void sortArtistsByExperience() {
+        System.out.println("Artists sorted by experience:");
+        artists.stream()
+                .sorted(Comparator.comparingInt(Artist::getExperienceYears).reversed())
+                .forEach(System.out::println);
+    }
+
     @Override
     public String toString() {
-        return "ArtGallery{" +
-                "name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", artworksCount=" + artworks.size() +
-                ", artistsCount=" + artists.size() +
-                '}';
+        return "ArtGallery{name='" + name + '\'' + ", location='" + location + '\'' + ", artworksCount=" + artworks.size() + ", artistsCount=" + artists.size() + '}';
     }
 }
